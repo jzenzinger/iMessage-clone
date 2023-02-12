@@ -1,37 +1,35 @@
-import type { NextPage } from 'next'
-import  { signIn, signOut, useSession } from "next-auth/react";
+import Chat from "@/components/Chat/Chat";
+import type { NextPage, NextPageContext } from "next";
+import { getSession, useSession } from "next-auth/react";
+import { Session } from "next-auth/";
+import Auth from "@/components/Auth/Auth";
 
 const Home: NextPage = () => {
-    const { data } = useSession();
+  const { data: session } = useSession();
 
-    console.log("HERE IS DATA", data);
+  const reloadSession = () => {};
 
-    function handleSignIn(type: string) {
-        event.preventDefault();
-        signIn();
-    }  
+  console.log("HERE IS DATA", session);
 
-    return (
-        <section className="h-screen">
-            <div className="px-6 h-full text-gray-800">
-                    {
-                        data?.user ? (
-                            <button onClick={() => signOut()}
-                                    className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
-                                        Sign Out
-                            </button>
-                        ) : (
-                            <button onClick={() => handleSignIn('google')}
-                                    className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
-                                        Sign In
-                            </button>
-                    )}
-                <br></br>
-                <br></br>
-                {data?.user?.name}
-            </div>
-        </section>
-    );
+  return (
+    <div className="h-screen">
+      <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-start h-screen md:px-8">
+        <div className="max-w-lg mx-auto space-y-3 text-center">
+          {session?.user?.username ? <Chat /> : <Auth session={session} reloadSession={reloadSession} />}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export async function getServerSideProps(context: NextPageContext) {
+  const session = await getSession(context);
+
+  return {
+    props: {
+      session,
+    },
+  };
 }
 
 export default Home;
