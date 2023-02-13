@@ -9,8 +9,6 @@ const Home: NextPage = () => {
 
   const reloadSession = () => {};
 
-  console.log("HERE IS DATA", session);
-
   return (
     <div className="h-screen">
       <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-start h-screen md:px-8">
