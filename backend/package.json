@@ -12,6 +12,7 @@
   "dependencies": {
     "@apollo/server": "^4.3.3",
     "@graphql-tools/schema": "^9.0.16",
+    "dotenv": "^16.0.3",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
     "lodash.merge": "^4.6.2",
