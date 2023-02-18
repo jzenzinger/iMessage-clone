@@ -3,7 +3,6 @@ import { Session } from "next-auth";
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import UserOperations from "../../graphql/operations/user";
-import { StringLiteral } from "typescript";
 import { CreateUsernameData, CreateUsernameVariables } from "@/util/types";
 
 interface IAuthProps {
@@ -18,8 +17,6 @@ const Auth: React.FC<IAuthProps> = ({ session, reloadSession }) => {
     CreateUsernameData,
     CreateUsernameVariables
   >(UserOperations.Mutations.createUsername);
-
-  console.log("HERE IS DATA: ", data, loading, error);
 
   const onSubmit = async () => {
     if (!username) return;
