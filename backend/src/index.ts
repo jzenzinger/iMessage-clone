@@ -35,7 +35,7 @@ async function main() {
   /**
    * Context parameters
    */
-  const prisma = new PrismaClient()
+  const prisma = new PrismaClient({errorFormat: "minimal"})
 
   const server = new ApolloServer<MyContext>({
     schema,
@@ -51,10 +51,7 @@ async function main() {
     expressMiddleware(server, {
       context: async ({ req }): Promise<GraphQLContext>  => {
         const session = await getSession({ req }) as Session;
-
-        console.log("HERE IS SESSION: ", session);
         
-
         return { session, prisma };
       },
     })

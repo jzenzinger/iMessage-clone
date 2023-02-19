@@ -21,7 +21,7 @@ const Home: NextPage = () => {
 };
 
 export async function getServerSideProps(context: NextPageContext) {
-  const session = await getSession(context);
+  const session = await getSession(context);  
 
   return {
     props: {
