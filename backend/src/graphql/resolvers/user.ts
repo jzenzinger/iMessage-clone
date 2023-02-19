@@ -30,7 +30,7 @@ const resolvers = {
 
         if (existingUser) {
           return {
-            error: "Username already taken. Try another",
+            error: "Username already taken. Try another one please.",
           };
         }
 

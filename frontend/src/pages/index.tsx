@@ -7,7 +7,10 @@ import Auth from "@/components/Auth/Auth";
 const Home: NextPage = () => {
   const { data: session } = useSession();
 
-  const reloadSession = () => {};
+  const reloadSession = () => {
+    const event = new Event("visibilitychange");
+    document.dispatchEvent(event);
+  };
 
   return (
     <div className="h-screen">
@@ -22,6 +25,9 @@ const Home: NextPage = () => {
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);  
+
+  console.log("SESSION: ", session);
+  
 
   return {
     props: {
