@@ -13,21 +13,18 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className="h-screen">
-      <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-start h-screen md:px-8">
-        <div className="max-w-lg mx-auto space-y-3 text-center">
-          {session?.user?.username ? <Chat /> : <Auth session={session} reloadSession={reloadSession} />}
-        </div>
-      </div>
+    <div className="h-screen bg-gradient-to-br from-sky-50 to-gray-200">
+      {session?.user?.username ? (
+        <Chat />
+      ) : (
+        <Auth session={session} reloadSession={reloadSession} />
+      )}
     </div>
   );
 };
 
 export async function getServerSideProps(context: NextPageContext) {
-  const session = await getSession(context);  
-
-  console.log("SESSION: ", session);
-  
+  const session = await getSession(context);
 
   return {
     props: {

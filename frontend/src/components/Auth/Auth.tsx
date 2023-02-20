@@ -49,11 +49,11 @@ const Auth: React.FC<IAuthProps> = ({ session, reloadSession }) => {
   };
 
   return (
-    <main className="w-full h-screen flex flex-col items-center justify-center px-4">
-      <div className="max-w-sm w-full text-gray-600">
-        <div className="text-center">
+    <div className="h-full flex justify-center items-center">
+      <div className="w-1/3 text-gray-600">
+        <div className="text-center rounded-xl bg-white shadow-xl py-14">
           {session ? (
-            <div className="mt-8 space-y-5">
+            <div className="p-10 space-y-6">
               <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">
                 Create a Username
               </h3>
@@ -74,22 +74,47 @@ const Auth: React.FC<IAuthProps> = ({ session, reloadSession }) => {
               </a>
             </div>
           ) : (
-            <>
-              <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">
+            <div className="p-10">
+              <h3 className="pb-16 font-extrabold text-transparent text-6xl bg-clip-text bg-gradient-to-r from-indigo-600 to-teal-500">
                 MessengerQL
               </h3>
-              <a
-                href="#"
-                onClick={() => signIn("google")}
-                className="m-8 bg-indigo-600 rounded text-white duration-150 hover:bg-indigo-700 active:shadow-lg font-medium inline-flex items-center gap-x-1 px-4 py-2"
-              >
-                Continue with Google
-              </a>
-            </>
+              <div className="">
+                <a
+                  href="#"
+                  onClick={() => signIn("google")}
+                  className="border-2 border-indigo-600 rounded-lg text-gray-900 duration-150 hover:bg-indigo-700 hover:text-white active:shadow-lg font-medium inline-flex items-center gap-x-1 px-3 py-3"
+                >
+                  <img
+                    src="https://tailus.io/sources/blocks/social/preview/images/google.svg"
+                    className="px-1 w-8"
+                    alt="google logo"
+                  />
+                  Continue with Google
+                </a>
+                <div className="mt-16 text-gray-600 px-12 text-center">
+                  <p className="text-xs text-start">
+                    By proceeding, you agree to our{" "}
+                    <a href="#" className="underline">
+                      Terms of Use
+                    </a>
+                    . <br />
+                    This site is protected by reCAPTCHA and the{" "}
+                    <a href="#" className="underline">
+                      Google Privacy Policy
+                    </a>{" "}
+                    and{" "}
+                    <a href="#" className="underline">
+                      Terms of Service
+                    </a>{" "}
+                    apply.
+                  </p>
+                </div>
+              </div>
+            </div>
           )}
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 
