@@ -9,7 +9,7 @@ interface ChatProps {
 
 const Chat: React.FC<ChatProps> = ({ session }) => {
   return (
-    <div className="flex h-full">
+    <div className="flex h-full flex-col md:flex-row">
       <ConversationsWrapper session={session} />
       <FeedWrapper session={session} />
     </div>

@@ -9,7 +9,7 @@ const ConversationsWrapper: React.FC<ConversationsWrapperProps> = ({
   session,
 }) => {
   return (
-    <div className="sm:w-full md:w-96 border bg-gray-300 md:rounded-lg m-2">
+    <div className="sm:w-full md:w-80 border bg-gray-300 md:rounded-lg m-2">
       {/* Skeleton Loader */}
       <ConversationList session={session}/>
     </div>

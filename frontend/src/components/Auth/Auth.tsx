@@ -50,13 +50,13 @@ const Auth: React.FC<IAuthProps> = ({ session, reloadSession }) => {
 
   return (
     <div className="h-full flex justify-center items-center">
-      <div className="w-1/3 text-gray-600">
+      <div className="w-max-1/2 text-gray-600">
         <div className="text-center rounded-xl bg-white shadow-xl py-14">
           {session ? (
             <div className="p-10 space-y-6">
-              <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">
+              <p className="text-gray-800 text-2xl font-bold sm:text-3xl">
                 Create a Username
-              </h3>
+              </p>
               <input
                 type="text"
                 required
@@ -91,7 +91,7 @@ const Auth: React.FC<IAuthProps> = ({ session, reloadSession }) => {
                   />
                   Continue with Google
                 </a>
-                <div className="mt-16 text-gray-600 px-12 text-center">
+                <div className="mt-24 text-gray-600 px-12 text-center">
                   <p className="text-xs text-start">
                     By proceeding, you agree to our{" "}
                     <a href="#" className="underline">

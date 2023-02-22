@@ -1,4 +1,5 @@
 import { Session } from "next-auth";
+import { signOut } from "next-auth/react";
 import { useState } from "react";
 import ConversationModal from "./Modal/Modal";
 
@@ -12,13 +13,14 @@ const ConversationList: React.FC<ConversationListProps> = ({ session }) => {
   return (
     <div className="w-full py-2 px-2">
       <div
-        className="py-2 mb-1 bg-gray-600 rounded-md cursor-pointer shadow-lg"
+        className="py-2 mb-4 bg-indigo-700 rounded-md cursor-pointer hover:shadow-lg transition-shadow"
         onClick={() => setIsOpen(true)}
       >
         <p className="text-center text-white font-medium">
           Find or start conversation
         </p>
       </div>
+      <button onClick={() => signOut()}>Sign Out</button>
       <ConversationModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </div>
   );
