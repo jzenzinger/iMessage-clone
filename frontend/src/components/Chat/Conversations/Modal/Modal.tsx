@@ -2,6 +2,7 @@ import { SearchedUser, SearchUsersData, SearchUsersInput } from "@/util/types";
 import { useLazyQuery } from "@apollo/client";
 import { useState } from "react";
 import UserOperations from "../../../../graphql/operations/user";
+import ParticipantsList from "./Participants";
 import UserSearchList from "./UserSearchList";
 
 interface ModalProps {
@@ -12,7 +13,7 @@ interface ModalProps {
 const ConversationModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   const [username, setUsername] = useState("");
   const [participants, setParticipants] = useState<Array<SearchedUser>>([]);
-  
+
   // Lazy Query - we define when is this query fired up
   const [searchUsers, { data, loading, error }] = useLazyQuery<
     SearchUsersData,
@@ -26,6 +27,15 @@ const ConversationModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     searchUsers({ variables: { username } });
   };
 
+  const addParticipant = (user: SearchedUser) => {
+    setParticipants((prev) => [...prev, user]);
+    setUsername("");
+  };
+
+  const removeParticipant = (userId: string) => {
+    setParticipants((prev) => prev.filter((p) => p.id !== userId));
+  };
+
   return (
     <div>
       {isOpen ? (
@@ -33,7 +43,7 @@ const ConversationModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
           id="authentication-modal"
           tabIndex={-1}
           aria-hidden="true"
-          className="bg-gray-300 bg-opacity-70 backdrop-blur-sm flex justify-center items-center fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full text-white"
+          className="bg-gray-300 transition-all bg-opacity-70 backdrop-blur-sm flex justify-center items-center fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full text-white"
         >
           <div className="relative w-full h-full max-w-md md:h-auto">
             <div className="relative bg-white rounded-lg shadow-2xl dark:bg-gray-800">
@@ -89,7 +99,16 @@ const ConversationModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                   </button>
                 </form>
                 {data?.searchUsers && (
-                  <UserSearchList users={data.searchUsers} />
+                  <UserSearchList
+                    users={data.searchUsers}
+                    addParticipant={addParticipant}
+                  />
+                )}
+                {participants.length !== 0 && (
+                  <ParticipantsList
+                    participants={participants}
+                    removeParticipants={removeParticipant}
+                  />
                 )}
               </div>
             </div>
