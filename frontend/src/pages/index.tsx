@@ -15,7 +15,7 @@ const Home: NextPage = () => {
   return (
     <div className="h-screen bg-gradient-to-br from-sky-50 to-gray-200">
       {session?.user?.username ? (
-        <Chat />
+        <Chat session={session} />
       ) : (
         <Auth session={session} reloadSession={reloadSession} />
       )}

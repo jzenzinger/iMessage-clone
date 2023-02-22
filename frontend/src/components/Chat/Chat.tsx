@@ -1,18 +1,17 @@
+import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
+import ConversationsWrapper from "./Conversations/ConversationsWrapper";
+import FeedWrapper from "./Feed/FeedWrapper";
 
-interface IChatProps {}
+interface ChatProps {
+  session: Session;
+}
 
-const Chat: React.FC<IChatProps> = (props) => {
+const Chat: React.FC<ChatProps> = ({ session }) => {
   return (
-    <div>
-      Chat
-      <a
-        href="#"
-        onClick={() => signOut()}
-        className="m-4 bg-indigo-600 rounded text-white duration-150 hover:bg-indigo-700 active:shadow-lg font-medium inline-flex items-center gap-x-1 px-4 py-2"
-      >
-        Sign Out
-      </a>
+    <div className="flex h-full">
+      <ConversationsWrapper session={session} />
+      <FeedWrapper session={session} />
     </div>
   );
 };
