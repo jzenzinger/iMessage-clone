@@ -76,7 +76,7 @@ const Auth: React.FC<IAuthProps> = ({ session, reloadSession }) => {
           ) : (
             <div className="p-10">
               <h3 className="pb-16 font-extrabold text-transparent text-6xl bg-clip-text bg-gradient-to-r from-indigo-600 to-teal-500">
-                MessengerQL
+                MessageMe
               </h3>
               <div className="">
                 <a

@@ -2,10 +2,10 @@ import { signOut } from "next-auth/react";
 
 const SignOutButton: React.FC = ({}) => {
   return (
-    <div className="absolute bottom-1 pb-10 left-16">
+    <div className="absolute bottom-1 pb-7 left-16">
       <button
         className="flex flex-row items-center px-4 transition-shadow border-2 border-indigo-700 hover:bg-indigo-700 hover:text-white
-       hover:shadow-xl hover:cursor-pointer font-medium rounded-md text-sm py-2"
+       hover:shadow-xl hover:cursor-pointer font-medium rounded-md py-2"
         onClick={() => signOut()}
       >
         <svg
@@ -14,7 +14,7 @@ const SignOutButton: React.FC = ({}) => {
           viewBox="0 0 22 22"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="w-6 h-6 mr-2"
+          className="w-5 h-5 mr-2"
         >
           <path
             stroke-linecap="round"
