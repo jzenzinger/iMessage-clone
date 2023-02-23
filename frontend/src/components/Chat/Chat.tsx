@@ -1,5 +1,4 @@
 import { Session } from "next-auth";
-import { signOut } from "next-auth/react";
 import ConversationsWrapper from "./Conversations/ConversationsWrapper";
 import FeedWrapper from "./Feed/FeedWrapper";
 

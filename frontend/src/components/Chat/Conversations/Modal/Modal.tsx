@@ -20,8 +20,6 @@ const ConversationModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     SearchUsersInput
   >(UserOperations.Quieries.searchUsers);
 
-  console.log("HERE IS SEARCH DATA: ", data);
-
   const onSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     searchUsers({ variables: { username } });
