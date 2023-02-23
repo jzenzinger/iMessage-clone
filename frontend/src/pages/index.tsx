@@ -13,7 +13,7 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className="h-screen bg-gradient-to-br from-sky-50 to-gray-200">
+    <div className="h-screen bg-gradient-to-br from-sky-100 to-gray-300">
       {session?.user?.username ? (
         <Chat session={session} />
       ) : (

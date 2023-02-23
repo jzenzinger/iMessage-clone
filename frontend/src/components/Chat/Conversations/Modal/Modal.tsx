@@ -43,7 +43,7 @@ const ConversationModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
           id="authentication-modal"
           tabIndex={-1}
           aria-hidden="true"
-          className="bg-gray-300 transition-all bg-opacity-70 backdrop-blur-sm flex justify-center items-center fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full text-white"
+          className="bg-gray-200 transition-all bg-opacity-60 backdrop-blur-sm flex justify-center items-center fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full text-white"
         >
           <div className="relative w-full h-full max-w-md md:h-auto">
             <div className="relative bg-white rounded-lg shadow-2xl dark:bg-gray-800">
@@ -110,6 +110,7 @@ const ConversationModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                     removeParticipants={removeParticipant}
                   />
                 )}
+                {/* VIDEO RealtimeChapApp P2 => 1:16:44 */}
               </div>
             </div>
           </div>
