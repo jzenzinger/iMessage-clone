@@ -4,8 +4,8 @@ const SignOutButton: React.FC = ({}) => {
   return (
     <div className="absolute bottom-1 pb-7 left-16">
       <button
-        className="flex flex-row items-center px-4 transition-shadow border-2 border-indigo-700 hover:bg-indigo-700 hover:text-white
-       hover:shadow-xl hover:cursor-pointer font-medium rounded-md py-2"
+        className="flex flex-row items-center transition-shadow border-2 border-indigo-700 hover:bg-indigo-700 hover:text-white
+       hover:shadow-xl hover:cursor-pointer font-medium rounded-md px-4 py-[7px]"
         onClick={() => signOut()}
       >
         <svg

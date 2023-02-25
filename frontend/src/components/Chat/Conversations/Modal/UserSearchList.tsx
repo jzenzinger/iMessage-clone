@@ -1,6 +1,4 @@
 import { SearchedUser } from "@/util/types";
-import { Session } from "next-auth";
-import { useState } from "react";
 
 interface UserSearchListProps {
   users: Array<SearchedUser>;
@@ -11,7 +9,7 @@ const UserSearchList: React.FC<UserSearchListProps> = ({
   users,
   addParticipant,
 }) => {
-  const [username, setUsername] = useState("");
+  console.log(users);
 
   return (
     <div className="my-6">

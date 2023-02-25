@@ -32,10 +32,10 @@ const ConversationModal: React.FC<ModalProps> = ({
   const [participants, setParticipants] = useState<Array<SearchedUser>>([]);
 
   // Lazy Query - we define when is this query fired up
-  const [searchUsers, { data, loading, error }] = useLazyQuery<
-    SearchUsersData,
-    SearchUsersInput
-  >(UserOperations.Quieries.searchUsers);
+  const [searchUsers, { data, loading: SearchUsersLoading, error }] =
+    useLazyQuery<SearchUsersData, SearchUsersInput>(
+      UserOperations.Quieries.searchUsers
+    );
 
   const [createConversation, { loading: createConversationLoading }] =
     useMutation<CreateConversationData, CreateConversationInput>(
@@ -104,7 +104,7 @@ const ConversationModal: React.FC<ModalProps> = ({
                 <span className="sr-only">Close modal</span>
               </button>
               <div className="px-6 py-6 lg:px-8">
-                <h3 className="mb-4 text-xl font-medium text-white">
+                <h3 className="mb-6 mt-2 text-xl font-medium text-white text-center">
                   Create New Conversation
                 </h3>
                 <form onSubmit={onSubmit}>
@@ -124,7 +124,18 @@ const ConversationModal: React.FC<ModalProps> = ({
                     disabled={!username}
                     className="w-full text-white transition-shadow bg-gray-700 hover:opacity-90 hover:cursor-pointer font-medium rounded-lg text-sm px-5 py-2.5 mt-6 text-center"
                   >
-                    Search
+                    {SearchUsersLoading ? (
+                      <div
+                        className="inline-block h-5 w-5 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                        role="status"
+                      >
+                        <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                          Loading...
+                        </span>
+                      </div>
+                    ) : (
+                      <span>Search</span>
+                    )}
                   </button>
                 </form>
                 {data?.searchUsers && (
