@@ -1,16 +1,33 @@
-import { SearchedUser, SearchUsersData, SearchUsersInput } from "@/util/types";
-import { useLazyQuery } from "@apollo/client";
+import {
+  CreateConversationData,
+  CreateConversationInput,
+  SearchedUser,
+  SearchUsersData,
+  SearchUsersInput,
+} from "@/util/types";
+import { useLazyQuery, useMutation } from "@apollo/client";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 import UserOperations from "../../../../graphql/operations/user";
+import ConversationOperations from "../../../../graphql/operations/conversation";
 import ParticipantsList from "./Participants";
 import UserSearchList from "./UserSearchList";
+import { Session } from "next-auth";
 
 interface ModalProps {
+  session: Session;
   isOpen: boolean;
   onClose: () => void;
 }
 
-const ConversationModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+const ConversationModal: React.FC<ModalProps> = ({
+  session,
+  isOpen,
+  onClose,
+}) => {
+  const {
+    user: { id: userId },
+  } = session;
   const [username, setUsername] = useState("");
   const [participants, setParticipants] = useState<Array<SearchedUser>>([]);
 
@@ -19,6 +36,26 @@ const ConversationModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     SearchUsersData,
     SearchUsersInput
   >(UserOperations.Quieries.searchUsers);
+
+  const [createConversation, { loading: createConversationLoading }] =
+    useMutation<CreateConversationData, CreateConversationInput>(
+      ConversationOperations.Mutations.createConversation
+    );
+
+  const onCreateConversation = async () => {
+    const participantIds = [userId, ...participants.map((p) => p.id)];
+    try {
+      const { data } = await createConversation({
+        variables: {
+          participantIds,
+        },
+      });
+      console.log("HERE IS DATA: ", data);
+    } catch (error: any) {
+      console.log("onCreateConversation error: ", error);
+      toast.error(error?.message);
+    }
+  };
 
   const onSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -70,28 +107,22 @@ const ConversationModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                 <h3 className="mb-4 text-xl font-medium text-white">
                   Create New Conversation
                 </h3>
-                <form className="space-y-6" onSubmit={onSubmit}>
-                  <div>
-                    <label
-                      htmlFor="username"
-                      className="block mb-2 text-sm font-medium text-white"
-                    >
-                      Username
-                    </label>
+                <form onSubmit={onSubmit}>
+                  <>
                     <input
                       type="text"
                       name="username"
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
                       className="border border-gray-800 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 placeholder-gray-400"
-                      placeholder="John Doe"
+                      placeholder="Search users by username"
                       required
                     />
-                  </div>
+                  </>
                   <button
                     type="submit"
                     disabled={!username}
-                    className="w-full text-white transition-shadow bg-indigo-500 hover:shadow-xl hover:cursor-pointer font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    className="w-full text-white transition-shadow bg-gray-700 hover:opacity-90 hover:cursor-pointer font-medium rounded-lg text-sm px-5 py-2.5 mt-6 text-center"
                   >
                     Search
                   </button>
@@ -103,12 +134,30 @@ const ConversationModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                   />
                 )}
                 {participants.length !== 0 && (
-                  <ParticipantsList
-                    participants={participants}
-                    removeParticipants={removeParticipant}
-                  />
+                  <>
+                    <ParticipantsList
+                      participants={participants}
+                      removeParticipants={removeParticipant}
+                    />
+                    <button
+                      className="w-full text-white transition-shadow bg-indigo-500 hover:opacity-90 active:opacity-90 hover:cursor-pointer font-medium rounded-lg text-sm px-5 py-2.5 mt-6 text-center"
+                      onClick={onCreateConversation}
+                    >
+                      {createConversationLoading ? (
+                        <div
+                          className="inline-block h-5 w-5 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                          role="status"
+                        >
+                          <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                            Loading...
+                          </span>
+                        </div>
+                      ) : (
+                        <span>Create Conversation</span>
+                      )}
+                    </button>
+                  </>
                 )}
-                {/* VIDEO RealtimeChapApp P2 => 1:16:44 */}
               </div>
             </div>
           </div>
