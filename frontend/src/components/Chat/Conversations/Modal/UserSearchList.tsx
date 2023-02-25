@@ -20,7 +20,7 @@ const UserSearchList: React.FC<UserSearchListProps> = ({
           <p>No users found.</p>
         </div>
       ) : (
-        <div>
+        <>
           {users.map((user) => (
             <div
               className="flex flex-row items-center px-3 rounded-md hover:bg-gray-700 transition-colors"
@@ -53,7 +53,7 @@ const UserSearchList: React.FC<UserSearchListProps> = ({
               </div>
             </div>
           ))}
-        </div>
+        </>
       )}
     </div>
   );
