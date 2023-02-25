@@ -9,8 +9,6 @@ const UserSearchList: React.FC<UserSearchListProps> = ({
   users,
   addParticipant,
 }) => {
-  console.log(users);
-
   return (
     <div className="my-6">
       {users.length === 0 ? (
