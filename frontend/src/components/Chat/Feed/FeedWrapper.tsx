@@ -10,7 +10,7 @@ const FeedWrapper: React.FC<FeedWrapperProps> = ({ session }) => {
 
   const { conversationId } = router.query;
 
-  // VIDEO P3 50:22 minutes
+
   return (
     <div className="md:flex md:flex-col w-full my-2 mx-2 bg-white shadow-2xl rounded-lg">
       <div className="m-2">

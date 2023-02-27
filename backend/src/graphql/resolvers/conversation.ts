@@ -3,6 +3,11 @@ import { GraphQLError } from "graphql";
 import { Prisma } from "@prisma/client";
 
 const resolvers = {
+  Query: {
+    conversations: async (_: any, __: any, context: GraphQLContext) => {
+      console.log("CONVERSATION QUERY");
+    },
+  },
   Mutation: {
     createConversation: async (
       _: any,
@@ -39,7 +44,7 @@ const resolvers = {
 
         return {
           conversationId: conversation.id,
-        }
+        };
       } catch (error: any) {
         console.log("createConversation error", error);
         throw new GraphQLError("Error creating conversation");

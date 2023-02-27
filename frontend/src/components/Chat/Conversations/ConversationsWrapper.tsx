@@ -1,6 +1,9 @@
 import SignOutButton from "@/components/Auth/SignOutButton";
+import { useQuery } from "@apollo/client";
 import { Session } from "next-auth";
 import ConversationList from "./ConversationList";
+import ConversationOperations from "../../../graphql/operations/conversation";
+import { ConversationsData } from "@/util/types";
 
 interface ConversationsWrapperProps {
   session: Session;
@@ -9,13 +12,23 @@ interface ConversationsWrapperProps {
 const ConversationsWrapper: React.FC<ConversationsWrapperProps> = ({
   session,
 }) => {
+  const {
+    data: conversationsData,
+    error: conversationsError,
+    loading: conversationsLoading,
+  } = useQuery<ConversationsData, null>(
+    ConversationOperations.Quieries.conversations
+  );
+
+  console.log("HERE IS CONVERSATION DATA: ", conversationsData);
+
   return (
     <div className="flex flex-col justify-between sm:w-full md:w-80 border bg-white shadow-xl md:rounded-lg m-2">
       {/* Skeleton Loader */}
-      <ConversationList session={session}/>
+      <ConversationList session={session} />
       <SignOutButton />
     </div>
-  )
+  );
 };
 
 export default ConversationsWrapper;
