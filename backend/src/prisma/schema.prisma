@@ -73,7 +73,7 @@ model ConversationParticipants {
   user                  User    @relation(fields: [userId], references: [id])
   conversationId        String
   conversation          Conversation  @relation(fields: [conversationId], references: [id])
-  hasSeenLatestMeesage  Boolean
+  hasSeenLatestMessage  Boolean
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
 }

@@ -27,7 +27,7 @@ const resolvers = {
               createMany: {
                 data: participantIds.map((id) => ({
                   userId: id,
-                  hasSeenLatestMeesage: id === userId,
+                  hasSeenLatestMessage: id === userId,
                 })),
               },
             },

@@ -10,7 +10,7 @@ const ConversationsWrapper: React.FC<ConversationsWrapperProps> = ({
   session,
 }) => {
   return (
-    <div className="sm:w-full md:w-80 border bg-white shadow-xl md:rounded-lg m-2">
+    <div className="flex flex-col justify-between sm:w-full md:w-80 border bg-white shadow-xl md:rounded-lg m-2">
       {/* Skeleton Loader */}
       <ConversationList session={session}/>
       <SignOutButton />
