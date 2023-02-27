@@ -6,7 +6,7 @@ import {
   SearchUsersInput,
 } from "@/util/types";
 import { useLazyQuery, useMutation } from "@apollo/client";
-import { useState } from "react";
+import { useState, useEffect, ReactEventHandler } from "react";
 import { toast } from "react-hot-toast";
 import UserOperations from "../../../../graphql/operations/user";
 import ConversationOperations from "../../../../graphql/operations/conversation";
@@ -69,6 +69,16 @@ const ConversationModal: React.FC<ModalProps> = ({
   const removeParticipant = (userId: string) => {
     setParticipants((prev) => prev.filter((p) => p.id !== userId));
   };
+
+  useEffect(() => {
+    const close = (e: any) => {
+      if (e.keyCode === 27) {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", close);
+    return () => window.removeEventListener("keydown", close);
+  }, []);
 
   return (
     <div>
