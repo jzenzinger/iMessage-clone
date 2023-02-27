@@ -2,10 +2,10 @@ import { signOut } from "next-auth/react";
 
 const SignOutButton: React.FC = ({}) => {
   return (
-    <div className="my-5 mx-auto">
+    <div className="mb-2 mt-4 mx-auto">
       <button
-        className="flex flex-row items-center transition-shadow border-2 border-indigo-700 hover:bg-indigo-700 hover:text-white
-       hover:shadow-xl hover:cursor-pointer font-medium rounded-md px-4 py-[7px]"
+        className="flex flex-row items-center transition-colors border-2 border-indigo-700 hover:bg-indigo-700 hover:text-white
+        hover:cursor-pointer font-medium rounded-md px-4 py-[7px]"
         onClick={() => signOut()}
       >
         <svg
