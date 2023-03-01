@@ -1,12 +1,15 @@
 import { Session } from "next-auth";
 import { useState } from "react";
+import { ConversationPopulated } from "../../../../../backend/src/util/types";
+import ConversationItem from "./ConversationsItem";
 import ConversationModal from "./Modal/Modal";
 
 interface ConversationListProps {
   session: Session;
+  conversations: Array<ConversationPopulated>
 }
 
-const ConversationList: React.FC<ConversationListProps> = ({ session }) => {
+const ConversationList: React.FC<ConversationListProps> = ({ session, conversations }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -19,7 +22,13 @@ const ConversationList: React.FC<ConversationListProps> = ({ session }) => {
           Find or start conversation
         </p>
       </div>
+      <div>
+        <h3 className="font-semibold mt-6">
+          Conversations
+        </h3>
+      </div>
       <ConversationModal session={session} isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      {conversations.map(conversation => <ConversationItem key={conversation.id} conversation={conversation} />)}
     </div>
   );
 };

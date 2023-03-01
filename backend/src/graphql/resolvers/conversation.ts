@@ -1,11 +1,56 @@
-import { GraphQLContext } from "../../util/types";
+import { ConversationPopulated, GraphQLContext } from "../../util/types";
 import { GraphQLError } from "graphql";
 import { Prisma } from "@prisma/client";
 
 const resolvers = {
   Query: {
-    conversations: async (_: any, __: any, context: GraphQLContext) => {
-      console.log("CONVERSATION QUERY");
+    conversations: async (
+      _: any,
+      __: any,
+      context: GraphQLContext
+    ): Promise<Array<ConversationPopulated>> => {
+      const { session, prisma } = context;
+
+      if (!session?.user) {
+        throw new GraphQLError("Not authorized");
+      }
+
+      const {
+        user: { id: userId },
+      } = session;
+
+      try {
+        /**
+         * Find all conversations  that user is part of
+         */
+        const conversations = await prisma.conversation.findMany({
+          /**
+           * This where query does not working because of bug in prisma
+           */
+          // where: {
+          //   participants: {
+          //     some: {
+          //       userId: {
+          //         equals: userId,
+          //       },
+          //     },
+          //   },
+          // },
+          include: conversationPopulated,
+        });
+
+        /**
+         * Since above query does not work
+         * !! means bool
+         */
+        return conversations.filter(
+          (conversations) =>
+            !!conversations.participants.find((p) => p.userId === userId)
+        );
+      } catch (error: any) {
+        console.log("conversation error: ", error);
+        throw new GraphQLError(error?.message);
+      }
     },
   },
   Mutation: {

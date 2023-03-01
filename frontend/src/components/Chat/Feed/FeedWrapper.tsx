@@ -19,7 +19,7 @@ const FeedWrapper: React.FC<FeedWrapperProps> = ({ session }) => {
             {conversationId}
           </>
         ) : (
-          <div className="flex items-center justify-center">
+          <div className="text-center">
             <p className="text-xl">No conversations selected yet.</p>
           </div>
         )}
