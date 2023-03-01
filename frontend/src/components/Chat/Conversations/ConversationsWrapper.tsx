@@ -4,7 +4,6 @@ import { Session } from "next-auth";
 import ConversationList from "./ConversationList";
 import ConversationOperations from "../../../graphql/operations/conversation";
 import { ConversationsData } from "@/util/types";
-import {onError} from "@apollo/client/link/error";
 import toast from "react-hot-toast";
 
 interface ConversationsWrapperProps {
@@ -18,6 +17,7 @@ const ConversationsWrapper: React.FC<ConversationsWrapperProps> = ({
     data: conversationsData,
     error: conversationsError,
     loading: conversationsLoading,
+    subscribeToMore  
   } = useQuery<ConversationsData, null>(
     ConversationOperations.Quieries.conversations, {
         onError: ({message}) => {
