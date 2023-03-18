@@ -3,8 +3,10 @@ import { useQuery } from "@apollo/client";
 import { Session } from "next-auth";
 import ConversationList from "./ConversationList";
 import ConversationOperations from "../../../graphql/operations/conversation";
+import { ConversationPopulated } from "../../../../../backend/src/util/types";
 import { ConversationsData } from "@/util/types";
 import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 interface ConversationsWrapperProps {
   session: Session;
@@ -17,21 +19,57 @@ const ConversationsWrapper: React.FC<ConversationsWrapperProps> = ({
     data: conversationsData,
     error: conversationsError,
     loading: conversationsLoading,
-    subscribeToMore  
+    subscribeToMore,
   } = useQuery<ConversationsData, null>(
-    ConversationOperations.Quieries.conversations, {
-        onError: ({message}) => {
-          toast.error(message);
-        }
-      }
+    ConversationOperations.Quieries.conversations,
+    {
+      onError: ({ message }) => {
+        toast.error(message);
+      },
+    }
   );
 
-  console.log("HERE IS CONVERSATION DATA: ", conversationsData);
+  const subscribeToNewConversation = () => {
+    subscribeToMore({
+      document: ConversationOperations.Subscriptions.conversationCreated,
+      updateQuery: (
+        prev,
+        {
+          subscriptionData,
+        }: {
+          subscriptionData: {
+            data: { conversationCreated: ConversationPopulated };
+          };
+        }
+      ) => {
+        if (!subscriptionData.data) return prev;
+
+        console.log("HERE IS SUBSCRIPTION DATA: ", subscriptionData);
+        
+
+        const newConversation = subscriptionData.data.conversationCreated;
+
+        return Object.assign({}, prev, {
+          conversations: [newConversation, ...prev.conversations],
+        });
+      },
+    });
+  };
+
+  /**
+   *  Execute subscription on mount
+   */
+  useEffect(() => {
+    subscribeToNewConversation();
+  }, []);
 
   return (
     <div className="flex flex-col justify-between sm:w-full md:w-80 border bg-white shadow-xl md:rounded-lg m-2">
       {/* Skeleton Loader */}
-      <ConversationList session={session} conversations={conversationsData?.conversations || []}/>
+      <ConversationList
+        session={session}
+        conversations={conversationsData?.conversations || []}
+      />
       <SignOutButton />
     </div>
   );

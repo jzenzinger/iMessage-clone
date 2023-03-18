@@ -1,6 +1,7 @@
 import { ConversationPopulated, GraphQLContext } from "../../util/types";
 import { GraphQLError } from "graphql";
 import { Prisma } from "@prisma/client";
+import { withFilter } from "graphql-subscriptions";
 
 const resolvers = {
   Query: {
@@ -101,14 +102,41 @@ const resolvers = {
   },
   Subscription: {
     conversationCreated: {
-      subscribe: (_: any, __: any, context: GraphQLContext) => {
-        const { pubsub } = context;
+      // subscribe: (_: any, __: any, context: GraphQLContext) => {
+      //   const { pubsub } = context;
 
-        pubsub.asyncIterator(["CONVERSATION_CREATED"]);
-      },
+      //   return pubsub.asyncIterator(["CONVERSATION_CREATED"]);
+      // },
+      subscribe: withFilter(
+        (_: any, __: any, context: GraphQLContext) => {
+          const { pubsub } = context;
+
+          return pubsub.asyncIterator(["CONVERSATION_CREATED"]);
+        },
+        (
+          payload: ConversationCreatedSubscriptionPayload,
+          _,
+          context: GraphQLContext
+        ) => {
+          const { session } = context;
+          const {
+            conversationCreated: { participants },
+          } = payload;
+
+          const userIsParticipant = participants.find(
+            (p) => p.userId === session?.user?.id
+          );
+
+          return userIsParticipant;   // VIDEO P3 -> 2:15:00
+        }
+      ),
     },
   },
 };
+
+export interface ConversationCreatedSubscriptionPayload {
+  conversationCreated: ConversationPopulated;
+}
 
 export const participantsPopulated =
   Prisma.validator<Prisma.ConversationParticipantsInclude>()({
