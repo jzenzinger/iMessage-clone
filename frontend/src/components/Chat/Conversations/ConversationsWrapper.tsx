@@ -7,6 +7,7 @@ import { ConversationPopulated } from "../../../../../backend/src/util/types";
 import { ConversationsData } from "@/util/types";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 interface ConversationsWrapperProps {
   session: Session;
@@ -20,14 +21,30 @@ const ConversationsWrapper: React.FC<ConversationsWrapperProps> = ({
     error: conversationsError,
     loading: conversationsLoading,
     subscribeToMore,
-  } = useQuery<ConversationsData, null>(
-    ConversationOperations.Quieries.conversations,
-    {
-      onError: ({ message }) => {
-        toast.error(message);
-      },
-    }
-  );
+  } = useQuery<
+    ConversationsData,
+    // Type 'null' does not satisfy the constraint 'OperationVariables'.ts(2344)
+    // That is apollo/client package error with current version ^3.7.7
+    null
+  >(ConversationOperations.Quieries.conversations, {
+    onError: ({ message }) => {
+      toast.error(message);
+    },
+  });
+
+  const router = useRouter();
+
+  const onViewConversation = async (conversationId: string) => {
+    /**
+     * TODO:
+     * 1. Push the conversationId to router query params
+     */
+    router.push({query: { conversationId }});
+    /**
+     * TODO: 
+     * 2. Mark the conversation by its Id as read
+     */
+  };
 
   const subscribeToNewConversation = () => {
     subscribeToMore({
@@ -43,9 +60,6 @@ const ConversationsWrapper: React.FC<ConversationsWrapperProps> = ({
         }
       ) => {
         if (!subscriptionData.data) return prev;
-
-        console.log("HERE IS SUBSCRIPTION DATA: ", subscriptionData);
-        
 
         const newConversation = subscriptionData.data.conversationCreated;
 
@@ -69,6 +83,7 @@ const ConversationsWrapper: React.FC<ConversationsWrapperProps> = ({
       <ConversationList
         session={session}
         conversations={conversationsData?.conversations || []}
+        onViewConversation={onViewConversation}
       />
       <SignOutButton />
     </div>
