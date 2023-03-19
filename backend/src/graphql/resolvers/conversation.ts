@@ -42,7 +42,7 @@ const resolvers = {
 
         /**
          * Since above query does not work
-         * !! means bool
+         * !! means converting to boolean
          */
         return conversations.filter(
           (conversations) =>
@@ -123,11 +123,12 @@ const resolvers = {
             conversationCreated: { participants },
           } = payload;
 
-          const userIsParticipant = participants.find(
+          // !! => Converting participants value to Boolean
+          const userIsParticipant = !!participants.find(
             (p) => p.userId === session?.user?.id
           );
 
-          return userIsParticipant;   // VIDEO P3 -> 2:15:00
+          return userIsParticipant;
         }
       ),
     },
