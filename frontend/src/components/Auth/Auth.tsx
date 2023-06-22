@@ -51,27 +51,29 @@ const Auth: React.FC<IAuthProps> = ({ session, reloadSession }) => {
   return (
     <div className="h-full flex justify-center items-center">
       <div className="w-max-1/2 text-gray-600">
-        <div className="text-center rounded-xl bg-white shadow-xl py-14">
+        <div className="text-center rounded-xl bg-white shadow-xl py-4">
           {session ? (
             <div className="p-10 space-y-6">
-              <p className="text-gray-800 text-2xl font-bold sm:text-3xl">
-                Create a Username
-              </p>
-              <input
-                type="text"
-                required
-                placeholder="Enter a username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-              />
-              <a
-                href="#"
-                onClick={onSubmit}
-                className="m-8 bg-indigo-700 rounded text-white duration-150 hover:bg-indigo-700 active:shadow-lg font-medium inline-flex items-center gap-x-1 px-5 py-2"
-              >
-                Save
-              </a>
+              <form onSubmit={onSubmit}>
+                <p className="text-gray-800 text-2xl pb-6 font-bold sm:text-3xl">
+                  Create a Username
+                </p>
+                <input
+                  type="text"
+                  required
+                  placeholder="Enter a username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="w-full my-2 px-3 py-3 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                />
+                <a
+                  href="#"
+                  onClick={onSubmit}
+                  className="m-8 bg-indigo-700 rounded text-white duration-150 hover:bg-indigo-700 active:shadow-lg font-medium inline-flex items-center gap-x-1 px-7 py-2.5"
+                >
+                  Save
+                </a>
+              </form>
             </div>
           ) : (
             <div className="p-10">
