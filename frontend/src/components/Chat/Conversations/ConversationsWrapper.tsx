@@ -23,7 +23,6 @@ const ConversationsWrapper: React.FC<ConversationsWrapperProps> = ({
     subscribeToMore,
   } = useQuery<
     ConversationsData,
-    // Type 'null' does not satisfy the constraint 'OperationVariables'.ts(2344)
     // That is apollo/client package error with current version ^3.7.7
     null
   >(ConversationOperations.Quieries.conversations, {
@@ -41,7 +40,7 @@ const ConversationsWrapper: React.FC<ConversationsWrapperProps> = ({
      */
     router.push({query: { conversationId }});
     /**
-     * TODO: 
+     * TODO:
      * 2. Mark the conversation by its Id as read
      */
   };

@@ -1,6 +1,6 @@
 import { Session } from "next-auth";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import React, { useState } from "react";
 import { ConversationPopulated } from "../../../../../backend/src/util/types";
 import ConversationItem from "./ConversationsItem";
 import ConversationModal from "./Modal/Modal";
