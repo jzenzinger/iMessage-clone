@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { ConversationPopulated } from "../../../../../backend/src/util/types";
 import ConversationItem from "./ConversationsItem";
 import ConversationModal from "./Modal/Modal";
+import ButtonStyled from "@/components/UI/ButtonStyled";
 
 interface ConversationListProps {
   session: Session;
@@ -25,13 +26,12 @@ const ConversationList: React.FC<ConversationListProps> = ({
 
   return (
     <div className="w-full py-2 px-2">
-      <div
-        className="py-2 mb-4 bg-indigo-700 rounded-md cursor-pointer hover:shadow-lg transition-shadow"
-        onClick={() => setIsOpen(true)}
-      >
-        <p className="text-center text-white font-medium">
-          Find or start conversation
-        </p>
+      <div className="flex justify-center">
+        <ButtonStyled
+          handleClick={() => setIsOpen(true)}
+          text="Find or start conversation"
+          styling="px-3 py-2"
+        />
       </div>
       <div>
         <h3 className="font-semibold mt-6">Conversations</h3>

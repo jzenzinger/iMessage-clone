@@ -19,7 +19,7 @@ const ConversationsWrapper: React.FC<ConversationsWrapperProps> = ({
   const {
     data: conversationsData,
     error: conversationsError,
-    loading: conversationsLoading,
+    loading: conversationsLoading, 
     subscribeToMore,
   } = useQuery<
     ConversationsData,

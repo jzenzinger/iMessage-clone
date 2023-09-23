@@ -23,7 +23,7 @@ const SignOutButton: React.FC = ({}) => {
           />
         </svg>
 
-        <span>Sign Out</span>
+        <span>Logout</span>
       </button>
     </div>
   );

@@ -5,6 +5,7 @@ import { useMutation } from "@apollo/client";
 import UserOperations from "../../graphql/operations/user";
 import { CreateUsernameData, CreateUsernameVariables } from "@/util/types";
 import toast from "react-hot-toast";
+import ButtonStyled from "../UI/ButtonStyled";
 
 interface IAuthProps {
   session: Session | null;
@@ -66,13 +67,7 @@ const Auth: React.FC<IAuthProps> = ({ session, reloadSession }) => {
                   onChange={(e) => setUsername(e.target.value)}
                   className="w-full my-2 px-3 py-3 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                 />
-                <a
-                  href="#"
-                  onClick={onSubmit}
-                  className="m-8 bg-indigo-700 rounded text-white duration-150 hover:bg-indigo-700 active:shadow-lg font-medium inline-flex items-center gap-x-1 px-7 py-2.5"
-                >
-                  Save
-                </a>
+                <ButtonStyled handleClick={onSubmit} text={"Save"} styling="mt-10 px-7 py-2.5"/>
               </form>
             </div>
           ) : (
