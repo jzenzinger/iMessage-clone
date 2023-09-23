@@ -27,17 +27,21 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleClick = (e: MouseEvent) => {
+  const handleClick = (e: React.MouseEvent) => {
     if (e.type === "click") {
       onClick();
     } else if (e.type === "contextmenu") {
+      e.preventDefault();
+      setMenuOpen(true);
     }
-    e.preventDefault();
-    setMenuOpen(true);
   };
 
   return (
-    <div className="w-full flex flex-row justify-center items-center my-2">
+    <div
+      className="w-full flex flex-row justify-center items-center my-2"
+      onClick={handleClick}
+      onContextMenu={handleClick}
+    >
       <div className="w-full border-b-2 hover:rounded-md border-gray-200 hover:bg-gray-200 hover:cursor-pointer transition-all px-1 py-2">
         <div className="flex gap-x-1">
           <div className="avatar placeholder flex">
