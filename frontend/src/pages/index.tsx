@@ -1,8 +1,10 @@
 import Chat from "@/components/Chat/Chat";
 import type { NextPage, NextPageContext } from "next";
 import { getSession, useSession } from "next-auth/react";
-import { Session } from "next-auth/";
+// import { Session } from "next-auth/";
 import Auth from "@/components/Auth/Auth";
+// import { useEffect } from "react";
+// import { router } from "next/client";
 
 const Home: NextPage = () => {
   const { data: session } = useSession();
@@ -11,6 +13,12 @@ const Home: NextPage = () => {
     const event = new Event("visibilitychange");
     document.dispatchEvent(event);
   };
+
+  // useEffect(() => {
+  //   if (!session?.user && router.query.conversationId) {
+  //     router.replace(process.env.NEXT_PUBLIC_BASE_URL as string);
+  //   }
+  // }, [session?.user, router.query]);
 
   return (
     <div className="h-screen bg-gradient-to-br from-sky-100 to-gray-300">

@@ -25,6 +25,7 @@ const ConversationsWrapper: React.FC<ConversationsWrapperProps> = ({
   } = useQuery<
     ConversationsData,
     // That is apollo/client package error with current version ^3.7.7
+    // @ts-ignore
     null
   >(ConversationOperations.Quieries.conversations, {
     onError: ({ message }) => {
@@ -41,7 +42,7 @@ const ConversationsWrapper: React.FC<ConversationsWrapperProps> = ({
      * TODO:
      * 1. Push the conversationId to router query params
      */
-    await router.push({ query: { conversationId } });
+    router.push({ query: { conversationId } });
     /**
      * TODO:
      * 2. Mark the conversation by its Id as read
