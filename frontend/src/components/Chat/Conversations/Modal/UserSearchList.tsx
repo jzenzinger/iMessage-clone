@@ -1,4 +1,5 @@
 import { SearchedUser } from "@/util/types";
+import React from "react";
 
 interface UserSearchListProps {
   users: Array<SearchedUser>;
