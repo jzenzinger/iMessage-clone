@@ -1,6 +1,6 @@
 import { ConversationPopulated } from "../../../../../backend/src/util/types";
-import { formatUsernames } from "../../../util/functions";
-import { useState } from "react";
+import { formatUsernames } from "@/util/functions";
+import React, { useState } from "react";
 
 interface ConversationItemProps {
   conversation: ConversationPopulated;
@@ -36,13 +36,19 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
     }
   };
 
+  const isSelectedClasses = "bg-indigo-100 rounded-md border-0";
+
   return (
     <div
       className="w-full flex flex-row justify-center items-center my-2"
       onClick={handleClick}
       onContextMenu={handleClick}
     >
-      <div className="w-full border-b-2 hover:rounded-md border-gray-200 hover:bg-gray-200 hover:cursor-pointer transition-all px-1 py-2">
+      <div
+        className={`w-full border-b-2 hover:rounded-md border-gray-200 hover:bg-indigo-200 hover:cursor-pointer transition-all px-1 py-2 ${
+          isSelected ? isSelectedClasses : ""
+        }`}
+      >
         <div className="flex gap-x-1">
           <div className="avatar placeholder flex">
             <div className="min-w-0 px-2 flex-col ">
@@ -50,7 +56,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
                 <span className="text-2xl">
                   {formatUsernames(conversation.participants, userId).substring(
                     0,
-                    1
+                    1,
                   )}
                 </span>
               </div>
