@@ -13,7 +13,7 @@ import * as dotenv from "dotenv";
 import { getSession } from "next-auth/react";
 import { GraphQLContext, Session, SubscriptionContext } from "./util/types";
 import { PrismaClient } from "@prisma/client";
-import { PubSub } from 'graphql-subscriptions';
+import { PubSub } from "graphql-subscriptions";
 import { WebSocketServer } from "ws";
 import { useServer } from "graphql-ws/lib/use/ws";
 
@@ -50,7 +50,7 @@ async function main() {
   const pubsub = new PubSub();
 
   const getSubscriptionContext = async (
-    ctx: SubscriptionContext
+    ctx: SubscriptionContext,
   ): Promise<GraphQLContext> => {
     ctx;
     // ctx is the graphql-ws Context where connectionParams live
@@ -62,7 +62,7 @@ async function main() {
     return { session: null, prisma, pubsub };
   };
 
-  // Save the returned server's info so we can shutdown this server later
+  // Save the returned server's info, so we can shut down this server later
   const serverCleanup = useServer(
     {
       schema,
@@ -73,7 +73,7 @@ async function main() {
         return getSubscriptionContext(ctx);
       },
     },
-    wsServer
+    wsServer,
   );
 
   const server = new ApolloServer<MyContext>({
@@ -107,11 +107,11 @@ async function main() {
 
         return { session: session as Session, prisma, pubsub };
       },
-    })
+    }),
   );
 
   await new Promise<void>((resolve) =>
-    httpServer.listen({ port: 4000 }, resolve)
+    httpServer.listen({ port: 4000 }, resolve),
   );
   console.log(`🚀 Server ready at http://localhost:4000/graphql`);
 }
