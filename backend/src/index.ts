@@ -46,7 +46,7 @@ async function main() {
   /**
    * Context parameters
    */
-  const prisma = new PrismaClient({ errorFormat: "minimal" });
+  const prisma = new PrismaClient();
   const pubsub = new PubSub();
 
   const getSubscriptionContext = async (

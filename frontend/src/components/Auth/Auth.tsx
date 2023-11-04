@@ -82,7 +82,7 @@ const Auth: React.FC<IAuthProps> = ({ session, reloadSession }) => {
           ) : (
             <div className="p-10 space-x-6">
               <h3 className="pb-16 font-extrabold text-transparent text-5xl bg-clip-text bg-gradient-to-r from-indigo-600 to-indigo-500">
-                Sign In
+                Sign Up
               </h3>
               <div className="">
                 <a
