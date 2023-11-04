@@ -25,8 +25,9 @@ const ConversationsWrapper: React.FC<ConversationsWrapperProps> = ({
   } = useQuery<
     ConversationsData,
     // That is apollo/client package error with current version ^3.7.7
+    // @ts-ignore
     null
-  >(ConversationOperations.Quieries.conversations, {
+  >(ConversationOperations.Queries.conversations, {
     onError: ({ message }) => {
       toast.error(message);
     },

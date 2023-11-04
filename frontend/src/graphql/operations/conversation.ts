@@ -22,14 +22,14 @@ const ConversationFields = `
 `;
 
 export default {
-  Quieries: {
+  Queries: {
     conversations: gql`
-      query Conversations {
-        conversations {
-          ${ConversationFields}
-        }
-      }
-    `,
+            query Conversations {
+                conversations {
+                    ${ConversationFields}
+                }
+            }
+        `,
   },
   Mutations: {
     createConversation: gql`
@@ -42,11 +42,11 @@ export default {
   },
   Subscriptions: {
     conversationCreated: gql`
-      subscription ConversationCreated {
-        conversationCreated {
-          ${ConversationFields}
-        }
-      }
-    `,
+            subscription ConversationCreated {
+                conversationCreated {
+                    ${ConversationFields}
+                }
+            }
+        `,
   },
 };
