@@ -42,7 +42,7 @@ const ConversationsWrapper: React.FC<ConversationsWrapperProps> = ({
      * TODO:
      * 1. Push the conversationId to router query params
      */
-    await router.push({ query: { conversationId } });
+    router.push({ query: { conversationId } });
     /**
      * TODO:
      * 2. Mark the conversation by its Id as read

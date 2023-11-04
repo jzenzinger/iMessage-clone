@@ -34,7 +34,7 @@ const Auth: React.FC<IAuthProps> = ({ session, reloadSession }) => {
           createUsername: { error },
         } = data;
 
-        throw new Error(error);
+        throw new Error("Error when creating username: " + error);
       }
 
       toast.success("Username successfully created! ❤️");
@@ -50,8 +50,13 @@ const Auth: React.FC<IAuthProps> = ({ session, reloadSession }) => {
   };
 
   return (
-    <div className="h-full flex justify-center items-center">
-      <div className="w-max-1/2 text-gray-600">
+    <>
+      <div className="h-1/6 w-min p-5">
+        <p className="pb-1 font-extrabold text-6xl text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-teal-500">
+          MessageMe
+        </p>
+      </div>
+      <div className="h-5/6 flex justify-center items-center w-max-1/2 text-gray-600">
         <div className="text-center rounded-xl bg-white shadow-xl py-4">
           {session ? (
             <div className="p-10 space-y-6">
@@ -67,13 +72,17 @@ const Auth: React.FC<IAuthProps> = ({ session, reloadSession }) => {
                   onChange={(e) => setUsername(e.target.value)}
                   className="w-full my-2 px-3 py-3 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                 />
-                <ButtonStyled handleClick={onSubmit} text={"Save"} styling="mt-10 px-7 py-2.5"/>
+                <ButtonStyled
+                  handleClick={onSubmit}
+                  text={"Save"}
+                  styling="mt-10 px-7 py-2.5"
+                />
               </form>
             </div>
           ) : (
-            <div className="p-10">
-              <h3 className="pb-16 font-extrabold text-transparent text-6xl bg-clip-text bg-gradient-to-r from-indigo-600 to-teal-500">
-                MessageMe
+            <div className="p-10 space-x-6">
+              <h3 className="pb-16 font-extrabold text-transparent text-5xl bg-clip-text bg-gradient-to-r from-indigo-600 to-indigo-500">
+                Sign Up
               </h3>
               <div className="">
                 <a
@@ -111,7 +120,7 @@ const Auth: React.FC<IAuthProps> = ({ session, reloadSession }) => {
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
